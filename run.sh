@@ -60,11 +60,11 @@ if [ "$1" == "import" ]; then
     sudo -u postgres psql -d gis -c "ALTER TABLE spatial_ref_sys OWNER TO renderer;"
     setPostgresPassword
 
-    # Download Luxembourg as sample if no data is provided
+    # Download Ethiopia as sample if no data is provided
     if [ ! -f /data/region.osm.pbf ] && [ -z "${DOWNLOAD_PBF:-}" ]; then
-        echo "WARNING: No import file at /data/region.osm.pbf, so importing Luxembourg as example..."
-        DOWNLOAD_PBF="https://download.geofabrik.de/europe/luxembourg-latest.osm.pbf"
-        DOWNLOAD_POLY="https://download.geofabrik.de/europe/luxembourg.poly"
+        echo "WARNING: No import file at /data/region.osm.pbf, so importing Ethiopia as example..."
+        DOWNLOAD_PBF="https://download.geofabrik.de/africa/ethiopia-latest.osm.pbf"
+        DOWNLOAD_POLY="https://download.geofabrik.de/africa/ethiopia.poly"
     fi
 
     if [ -n "${DOWNLOAD_PBF:-}" ]; then
