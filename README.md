@@ -9,13 +9,13 @@ This container allows you to easily set up an OpenStreetMap PNG tile server give
 
 First create a Docker volume to hold the PostgreSQL database that will contain the OpenStreetMap data:
 
-    docker volume create osm-data
+    docker volume create osm-data-ethiopia
 
 Next, download an `.osm.pbf` extract from geofabrik.de for the region that you're interested in. You can then start importing it into PostgreSQL by running a container and mounting the file as `/data/region.osm.pbf`. For example:
 
 ```
 docker run \
-    -v /absolute/path/to/luxembourg.osm.pbf:/data/region.osm.pbf \
+    -v /absolute/path/to/ethiopia-latest.osm.pbf:/data/region.osm.pbf \
     -v osm-data:/data/database/ \
     overv/openstreetmap-tile-server \
     import
@@ -34,8 +34,8 @@ If your import is an extract of the planet and has polygonal bounds associated w
 ```
 docker run \
     -e UPDATES=enabled \
-    -v /absolute/path/to/luxembourg.osm.pbf:/data/region.osm.pbf \
-    -v /absolute/path/to/luxembourg.poly:/data/region.poly \
+    -v /absolute/path/to/ethiopia-latest.osm.pbf:/data/region.osm.pbf \
+    -v /absolute/path/to/ethiopia.poly:/data/region.poly \
     -v osm-data:/data/database/ \
     overv/openstreetmap-tile-server \
     import
@@ -52,9 +52,9 @@ It is also possible to let the container download files for you rather than moun
 
 ```
 docker run \
-    -e DOWNLOAD_PBF=https://download.geofabrik.de/europe/luxembourg-latest.osm.pbf \
-    -e DOWNLOAD_POLY=https://download.geofabrik.de/europe/luxembourg.poly \
-    -v osm-data:/data/database/ \
+    -e DOWNLOAD_PBF=https://download.geofabrik.de/africa/ethiopia-latest.osm.pbf \
+    -e DOWNLOAD_POLY=https://download.geofabrik.de/africa/ethiopia.poly \
+    -v osm-data-ethiopia:/data/database/ \
     overv/openstreetmap-tile-server \
     import
 ```
@@ -65,8 +65,8 @@ By default the container will use openstreetmap-carto if it is not specified. Ho
 
 ```
 docker run \
-    -e DOWNLOAD_PBF=https://download.geofabrik.de/europe/luxembourg-latest.osm.pbf \
-    -e DOWNLOAD_POLY=https://download.geofabrik.de/europe/luxembourg.poly \
+    -e DOWNLOAD_PBF=https://download.geofabrik.de/africa/ethiopia-latest.osm.pbf \
+    -e DOWNLOAD_POLY=https://download.geofabrik.de/afric/ethiopia.poly \
     -e NAME_LUA=sample.lua \
     -e NAME_STYLE=test.style \
     -e NAME_MML=project.mml \
@@ -250,7 +250,7 @@ If you are planning to import the entire planet or you are running into memory e
 
 ```
 docker run \
-    -v /absolute/path/to/luxembourg.osm.pbf:/data/region.osm.pbf \
+    -v /absolute/path/to/ethiopia-latest.osm.pbf:/data/region.osm.pbf \
     -v osm-data:/data/database/ \
     -e "FLAT_NODES=enabled" \
     overv/openstreetmap-tile-server \
